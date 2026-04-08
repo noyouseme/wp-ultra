@@ -93,7 +93,7 @@ def create_directory(path):
 def normalize_url(url: str) -> str:
     url = url.strip()
     if not url.startswith(('http://', 'https://')):
-        url = 'http://' + url
+        url = 'https://' + url
     return url.rstrip('/')
 
 
