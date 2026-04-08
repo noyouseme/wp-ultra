@@ -360,6 +360,15 @@ class Reporter:
                              f'[CRITICAL] Valid credential: {cred["user"]}:{cred["password"]} '
                              f'via {cred.get("method","")}</p>')
 
+        # Pre-compute to avoid nested f-string with """ (SyntaxError on Python < 3.12)
+        if vuln_rows:
+            vuln_section = ('<table>'
+                            + trow(['Severity', 'CVE / ID', 'Title', 'Component', 'Note'], header=True)
+                            + vuln_rows
+                            + '</table>')
+        else:
+            vuln_section = '<p style="color:#6b7280">No CVEs matched.</p>'
+
         html = f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -421,11 +430,7 @@ class Reporter:
 
 <div class="card">
   <h2>Vulnerabilities</h2>
-  {'<p style="color:#6b7280">No CVEs matched.</p>' if not vuln_rows else f"""
-  <table>
-    {trow(['Severity','CVE / ID','Title','Component','Note'], header=True)}
-    {vuln_rows}
-  </table>"""}
+  {vuln_section}
 </div>
 
 <div class="card">
