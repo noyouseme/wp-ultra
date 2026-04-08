@@ -1,0 +1,446 @@
+{
+  "core": [
+    {
+      "id": "CVE-2023-2745",
+      "title": "WordPress Core <= 6.2 - Directory Traversal via Translation Files",
+      "type": "Directory Traversal",
+      "severity": "MEDIUM",
+      "cvss": 5.4,
+      "fixed_in": "6.2.1",
+      "description": "WordPress Core is vulnerable to directory traversal via the 'lang' parameter allowing attackers to read files outside the intended directory.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2023-2745"]
+    },
+    {
+      "id": "CVE-2022-21664",
+      "title": "WordPress Core <= 5.9.1 - SQL Injection via WP_Meta_Query",
+      "type": "SQLi",
+      "severity": "HIGH",
+      "cvss": 7.4,
+      "fixed_in": "5.9.2",
+      "description": "Authenticated SQL injection via the meta_query parameter in WP_Meta_Query.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-21664"]
+    },
+    {
+      "id": "CVE-2022-21663",
+      "title": "WordPress Core <= 5.9.1 - Object Injection via Multisites",
+      "type": "Object Injection",
+      "severity": "HIGH",
+      "cvss": 7.2,
+      "fixed_in": "5.9.2",
+      "description": "Authenticated super-admin can exploit object injection in multisites.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-21663"]
+    },
+    {
+      "id": "CVE-2022-21662",
+      "title": "WordPress Core <= 5.9.1 - Authenticated XSS via Post Slugs",
+      "type": "XSS",
+      "severity": "MEDIUM",
+      "cvss": 6.1,
+      "fixed_in": "5.9.2",
+      "description": "Authenticated low-privileged user can inject malicious scripts via post slugs.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-21662"]
+    },
+    {
+      "id": "CVE-2022-21661",
+      "title": "WordPress Core <= 5.9.1 - SQL Injection via WP_Query",
+      "type": "SQLi",
+      "severity": "HIGH",
+      "cvss": 8.0,
+      "fixed_in": "5.9.2",
+      "description": "Unauthenticated SQL injection via the WP_Query class, exploitable through URL parameters.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-21661"]
+    },
+    {
+      "id": "CVE-2021-29447",
+      "title": "WordPress 5.6-5.7 - Authenticated XXE via Media File Upload",
+      "type": "XXE",
+      "severity": "HIGH",
+      "cvss": 7.1,
+      "fixed_in": "5.7.1",
+      "description": "An authenticated user with the ability to upload files can trigger XXE via crafted WAV/OGG files.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-29447"]
+    },
+    {
+      "id": "CVE-2021-29450",
+      "title": "WordPress 3.7-5.7 - Password-Protected Posts Exposure",
+      "type": "Information Disclosure",
+      "severity": "MEDIUM",
+      "cvss": 5.3,
+      "fixed_in": "5.7.1",
+      "description": "Block-based themes may expose content of password-protected posts to unauthenticated users.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-29450"]
+    },
+    {
+      "id": "CVE-2020-4050",
+      "title": "WordPress <= 5.4.1 - Privilege Escalation via set-screen-option",
+      "type": "Privilege Escalation",
+      "severity": "HIGH",
+      "cvss": 7.5,
+      "fixed_in": "5.4.2",
+      "description": "Misuse of set-screen-option filters allows authenticated users to escalate privileges.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-4050"]
+    },
+    {
+      "id": "CVE-2019-17671",
+      "title": "WordPress <= 5.2.3 - Unauthenticated View Private/Draft Posts",
+      "type": "Information Disclosure",
+      "severity": "MEDIUM",
+      "cvss": 5.3,
+      "fixed_in": "5.2.4",
+      "description": "Unauthenticated users can view private and draft posts in certain configurations.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2019-17671"]
+    },
+    {
+      "id": "CVE-2019-9787",
+      "title": "WordPress < 5.1.1 - Cross-Site Request Forgery in Comment Handling",
+      "type": "CSRF",
+      "severity": "HIGH",
+      "cvss": 8.8,
+      "fixed_in": "5.1.1",
+      "description": "CSRF allows remote attackers to perform actions on behalf of authenticated users via comment manipulation.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2019-9787"]
+    },
+    {
+      "id": "CVE-2018-20147",
+      "title": "WordPress <= 4.9.8 - Authenticated File Delete (Arbitrary File Deletion)",
+      "type": "Arbitrary File Deletion",
+      "severity": "HIGH",
+      "cvss": 6.5,
+      "fixed_in": "4.9.9",
+      "description": "Authenticated users can delete arbitrary files, including wp-config.php.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2018-20147"]
+    },
+    {
+      "id": "CVE-2017-9066",
+      "title": "WordPress < 4.7.5 - SSRF via HTTP class",
+      "type": "SSRF",
+      "severity": "MEDIUM",
+      "cvss": 5.0,
+      "fixed_in": "4.7.5",
+      "description": "Server-Side Request Forgery via the HTTP class allows attackers to make requests to internal services.",
+      "references": ["https://nvd.nist.gov/vuln/detail/CVE-2017-9066"]
+    }
+  ],
+  "plugins": {
+    "contact-form-7": [
+      {
+        "id": "CVE-2023-6449",
+        "title": "Contact Form 7 < 5.8.4 - Unrestricted File Upload leading to RCE",
+        "type": "File Upload / RCE",
+        "severity": "CRITICAL",
+        "cvss": 9.8,
+        "fixed_in": "5.8.4",
+        "description": "Lack of file type validation allows uploading PHP files via the file attachment field.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2023-6449"]
+      },
+      {
+        "id": "CVE-2020-35489",
+        "title": "Contact Form 7 < 5.3.2 - Unrestricted File Upload",
+        "type": "File Upload",
+        "severity": "CRITICAL",
+        "cvss": 9.8,
+        "fixed_in": "5.3.2",
+        "description": "Insufficient file type validation allows uploading arbitrary files.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-35489"]
+      }
+    ],
+    "woocommerce": [
+      {
+        "id": "CVE-2021-32790",
+        "title": "WooCommerce < 5.5.1 - SQL Injection via Order Search",
+        "type": "SQLi",
+        "severity": "HIGH",
+        "cvss": 7.2,
+        "fixed_in": "5.5.1",
+        "description": "Authenticated SQL injection via the order search functionality in WooCommerce admin.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-32790"]
+      },
+      {
+        "id": "CVE-2022-2099",
+        "title": "WooCommerce < 6.6.0 - Stored XSS via Coupon Title",
+        "type": "XSS",
+        "severity": "MEDIUM",
+        "cvss": 4.8,
+        "fixed_in": "6.6.0",
+        "description": "Stored XSS vulnerability in WooCommerce coupon title field.",
+        "references": ["https://wpscan.com/vulnerability/2099"]
+      }
+    ],
+    "elementor": [
+      {
+        "id": "CVE-2022-1329",
+        "title": "Elementor < 3.6.3 - Remote Code Execution via Log File Upload",
+        "type": "RCE",
+        "severity": "CRITICAL",
+        "cvss": 9.9,
+        "fixed_in": "3.6.3",
+        "description": "Authenticated subscribers can execute arbitrary PHP code via crafted log file uploads.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-1329"]
+      },
+      {
+        "id": "CVE-2023-48777",
+        "title": "Elementor <= 3.18.0 - Arbitrary File Upload",
+        "type": "File Upload",
+        "severity": "HIGH",
+        "cvss": 8.8,
+        "fixed_in": "3.18.1",
+        "description": "Authenticated contributors can upload arbitrary files via Elementor template import.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2023-48777"]
+      }
+    ],
+    "yoast-seo": [
+      {
+        "id": "CVE-2021-25118",
+        "title": "Yoast SEO < 17.3 - Reflected XSS via Indexables Parameter",
+        "type": "XSS",
+        "severity": "MEDIUM",
+        "cvss": 6.1,
+        "fixed_in": "17.3",
+        "description": "Reflected XSS via the 'type' parameter in the Indexables section.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-25118"]
+      }
+    ],
+    "all-in-one-seo-pack": [
+      {
+        "id": "CVE-2021-25036",
+        "title": "All In One SEO < 4.1.5.3 - Privilege Escalation & SQLi",
+        "type": "Privilege Escalation / SQLi",
+        "severity": "CRITICAL",
+        "cvss": 9.9,
+        "fixed_in": "4.1.5.3",
+        "description": "Authenticated subscribers can escalate privileges to admin and perform SQL injection.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-25036"]
+      }
+    ],
+    "wp-super-cache": [
+      {
+        "id": "CVE-2021-24209",
+        "title": "WP Super Cache < 1.7.2 - RCE via Malicious Settings",
+        "type": "RCE",
+        "severity": "HIGH",
+        "cvss": 7.2,
+        "fixed_in": "1.7.2",
+        "description": "Authenticated admins can execute arbitrary code via crafted cache settings.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24209"]
+      }
+    ],
+    "buddypress": [
+      {
+        "id": "CVE-2021-21389",
+        "title": "BuddyPress < 7.2.1 - Privilege Escalation (REST API)",
+        "type": "Privilege Escalation",
+        "severity": "HIGH",
+        "cvss": 8.8,
+        "fixed_in": "7.2.1",
+        "description": "Authenticated subscribers can escalate to admin via the BuddyPress REST API.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-21389"]
+      }
+    ],
+    "bbpress": [
+      {
+        "id": "CVE-2020-13693",
+        "title": "bbPress < 2.6.5 - Unauthenticated Privilege Escalation",
+        "type": "Privilege Escalation",
+        "severity": "CRITICAL",
+        "cvss": 9.8,
+        "fixed_in": "2.6.5",
+        "description": "Unauthenticated users can register as administrators due to improper role assignment.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-13693"]
+      }
+    ],
+    "wordfence": [
+      {
+        "id": "CVE-2023-2733",
+        "title": "Wordfence < 7.9.2 - Bypass via IP Spoofing",
+        "type": "Security Bypass",
+        "severity": "MEDIUM",
+        "cvss": 5.3,
+        "fixed_in": "7.9.2",
+        "description": "IP spoofing via X-Forwarded-For header allows bypassing IP-based blocking rules.",
+        "references": ["https://wpscan.com/vulnerability/2733"]
+      }
+    ],
+    "jetpack": [
+      {
+        "id": "CVE-2023-2996",
+        "title": "Jetpack < 12.1.1 - Reflected XSS in Contact Form",
+        "type": "XSS",
+        "severity": "MEDIUM",
+        "cvss": 6.1,
+        "fixed_in": "12.1.1",
+        "description": "Reflected XSS in the Jetpack contact form via unvalidated callback parameters.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2023-2996"]
+      }
+    ],
+    "wp-file-manager": [
+      {
+        "id": "CVE-2020-25213",
+        "title": "WP File Manager < 6.9 - Unauthenticated RCE",
+        "type": "RCE",
+        "severity": "CRITICAL",
+        "cvss": 10.0,
+        "fixed_in": "6.9",
+        "description": "Unauthenticated remote code execution via elFinder file manager plugin.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-25213"]
+      }
+    ],
+    "duplicator": [
+      {
+        "id": "CVE-2020-11738",
+        "title": "Duplicator < 1.3.28 - Unauthenticated Arbitrary File Download",
+        "type": "Arbitrary File Read",
+        "severity": "HIGH",
+        "cvss": 7.5,
+        "fixed_in": "1.3.28",
+        "description": "Unauthenticated users can download arbitrary files including wp-config.php.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2020-11738"]
+      }
+    ],
+    "wpforms-lite": [
+      {
+        "id": "CVE-2021-24884",
+        "title": "WPForms Lite < 1.6.8 - CSRF to Stored XSS",
+        "type": "CSRF / XSS",
+        "severity": "HIGH",
+        "cvss": 8.0,
+        "fixed_in": "1.6.8",
+        "description": "CSRF vulnerability allows attackers to inject persistent XSS via form submissions.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24884"]
+      }
+    ],
+    "loginpress": [
+      {
+        "id": "CVE-2023-2536",
+        "title": "LoginPress < 1.6.6 - Authentication Bypass",
+        "type": "Authentication Bypass",
+        "severity": "CRITICAL",
+        "cvss": 9.8,
+        "fixed_in": "1.6.6",
+        "description": "Unauthenticated attackers can bypass authentication and log in as any user.",
+        "references": ["https://wpscan.com/vulnerability/2536"]
+      }
+    ],
+    "advanced-custom-fields": [
+      {
+        "id": "CVE-2023-30777",
+        "title": "Advanced Custom Fields < 6.1.6 - Reflected XSS",
+        "type": "XSS",
+        "severity": "HIGH",
+        "cvss": 7.1,
+        "fixed_in": "6.1.6",
+        "description": "Unauthenticated reflected XSS via the admin panel ACF field parameters.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2023-30777"]
+      }
+    ],
+    "updraftplus": [
+      {
+        "id": "CVE-2022-0633",
+        "title": "UpdraftPlus < 1.22.3 - Sensitive Data Exposure",
+        "type": "Information Disclosure",
+        "severity": "HIGH",
+        "cvss": 8.5,
+        "fixed_in": "1.22.3",
+        "description": "Subscriber-level users can download backup files containing sensitive credentials.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2022-0633"]
+      }
+    ],
+    "w3-total-cache": [
+      {
+        "id": "CVE-2021-24869",
+        "title": "W3 Total Cache < 2.1.5 - Server-Side Request Forgery",
+        "type": "SSRF",
+        "severity": "HIGH",
+        "cvss": 7.5,
+        "fixed_in": "2.1.5",
+        "description": "Authenticated SSRF via the CDN configuration endpoint.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24869"]
+      }
+    ],
+    "the-events-calendar": [
+      {
+        "id": "CVE-2021-24917",
+        "title": "The Events Calendar < 5.12.4 - SQL Injection",
+        "type": "SQLi",
+        "severity": "CRITICAL",
+        "cvss": 9.8,
+        "fixed_in": "5.12.4",
+        "description": "Unauthenticated SQL injection via the 'search' parameter in the REST API.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24917"]
+      }
+    ],
+    "give": [
+      {
+        "id": "CVE-2021-24940",
+        "title": "Give < 2.17.3 - SQL Injection via Donor ID",
+        "type": "SQLi",
+        "severity": "HIGH",
+        "cvss": 7.2,
+        "fixed_in": "2.17.3",
+        "description": "Authenticated admin SQL injection via the donor_id parameter.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24940"]
+      }
+    ],
+    "popup-maker": [
+      {
+        "id": "CVE-2023-3052",
+        "title": "Popup Maker < 1.18.2 - Unauthenticated Stored XSS",
+        "type": "XSS",
+        "severity": "HIGH",
+        "cvss": 7.2,
+        "fixed_in": "1.18.2",
+        "description": "Unauthenticated stored XSS via the popup form submission functionality.",
+        "references": ["https://wpscan.com/vulnerability/3052"]
+      }
+    ],
+    "easy-digital-downloads": [
+      {
+        "id": "CVE-2021-24783",
+        "title": "Easy Digital Downloads < 2.11.6 - Subscriber+ CSRF & XSS",
+        "type": "CSRF / XSS",
+        "severity": "HIGH",
+        "cvss": 8.0,
+        "fixed_in": "2.11.6",
+        "description": "CSRF combined with XSS allows privilege escalation for subscriber-level users.",
+        "references": ["https://nvd.nist.gov/vuln/detail/CVE-2021-24783"]
+      }
+    ]
+  },
+  "themes": {
+    "twentytwenty": [
+      {
+        "id": "CVE-2022-0903",
+        "title": "Twenty Twenty <= 1.9 - Reflected XSS via Search",
+        "type": "XSS",
+        "severity": "MEDIUM",
+        "cvss": 6.1,
+        "fixed_in": "2.0",
+        "description": "Reflected XSS via the search parameter in the theme's search template.",
+        "references": ["https://wpscan.com/vulnerability/0903"]
+      }
+    ],
+    "divi": [
+      {
+        "id": "CVE-2022-0422",
+        "title": "Divi < 4.14.7 - Reflected XSS via Multiple Parameters",
+        "type": "XSS",
+        "severity": "MEDIUM",
+        "cvss": 6.1,
+        "fixed_in": "4.14.7",
+        "description": "Multiple reflected XSS vulnerabilities via theme option parameters.",
+        "references": ["https://wpscan.com/vulnerability/0422"]
+      }
+    ],
+    "flatsome": [
+      {
+        "id": "CVE-2023-1407",
+        "title": "Flatsome < 3.17.5 - Stored XSS via Product Description",
+        "type": "XSS",
+        "severity": "MEDIUM",
+        "cvss": 5.4,
+        "fixed_in": "3.17.5",
+        "description": "Authenticated stored XSS via WooCommerce product descriptions in the Flatsome theme.",
+        "references": ["https://wpscan.com/vulnerability/1407"]
+      }
+    ]
+  }
+}
