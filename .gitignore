@@ -1,0 +1,46 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+dist/
+build/
+.eggs/
+*.egg
+pip-wheel-metadata/
+
+# Virtual environments
+venv/
+env/
+.env/
+.venv/
+
+# Scan results (don't commit target scan data)
+results_*/
+mass_scan_results/
+*.log
+report.html
+report.md
+report.json
+wp_info.json
+vulnerabilities.json
+exploitation.json
+brute_results.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Sensitive
+*.env
+config.local.py
