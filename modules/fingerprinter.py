@@ -131,6 +131,7 @@ class WPFingerprinter:
         self.timeout   = timeout
         self.output_dir = output_dir
         self.threads   = threads
+        self.force     = False  # set externally to skip WP check
 
     # ──────────────────────────────────────────────────────────────────────────
     def fingerprint(self) -> dict:
@@ -170,12 +171,20 @@ class WPFingerprinter:
         # 3. Security headers
         result["security_headers"] = self._check_security_headers(resp)
 
-        # 4. Detect WordPress
+        # 4. Detect WordPress (retry with bypass headers if WAF active)
         result["is_wordpress"] = self._is_wordpress(resp)
+        if not result["is_wordpress"] and result["waf"]:
+            print_warning(f"Retrying WordPress detection with WAF bypass headers…")
+            result["is_wordpress"] = self._is_wordpress(resp)
         if not result["is_wordpress"]:
-            print_warning("Target does not appear to be a WordPress site")
-            return result
-        print_success("WordPress detected!")
+            if self.force:
+                print_warning("WordPress not detected — continuing anyway (--force mode)")
+            else:
+                print_warning("Target does not appear to be a WordPress site. Aborting.")
+                print_info("Tip: use --force to scan anyway")
+                return result
+        else:
+            print_success("WordPress detected!")
 
         # 5. Version detection (10+ methods)
         version, sources = self._detect_version(resp)
@@ -233,13 +242,32 @@ class WPFingerprinter:
         return None
 
     def _waf_bypass_headers(self) -> dict:
-        """Return extra headers that may bypass simple WAF rules."""
+        """Return extended headers to bypass WAF / Cloudflare rules."""
+        import random
+        ua_pool = [
+            "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36",
+            "Mozilla/5.0 (X11; Linux x86_64; rv:125.0) Gecko/20100101 Firefox/125.0",
+            "Mozilla/5.0 (iPhone; CPU iPhone OS 17_0 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Mobile/15E148 Safari/604.1",
+            "Googlebot/2.1 (+http://www.google.com/bot.html)",
+        ]
         return {
-            "X-Forwarded-For": "127.0.0.1",
-            "X-Originating-IP": "127.0.0.1",
-            "X-Remote-IP": "127.0.0.1",
-            "X-Remote-Addr": "127.0.0.1",
-            "X-Client-IP": "127.0.0.1",
+            "User-Agent":          random.choice(ua_pool),
+            "X-Forwarded-For":     "127.0.0.1",
+            "X-Originating-IP":    "127.0.0.1",
+            "X-Remote-IP":         "127.0.0.1",
+            "X-Remote-Addr":       "127.0.0.1",
+            "X-Client-IP":         "127.0.0.1",
+            "True-Client-IP":      "127.0.0.1",
+            "CF-Connecting-IP":    "127.0.0.1",
+            "X-Real-IP":           "127.0.0.1",
+            "Forwarded":           "for=127.0.0.1;proto=https",
+            "Accept-Language":     "en-US,en;q=0.9",
+            "Accept":              "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8",
+            "Accept-Encoding":     "gzip, deflate, br",
+            "Cache-Control":       "no-cache",
+            "Pragma":              "no-cache",
+            "Upgrade-Insecure-Requests": "1",
         }
 
     # ──────────────────────────────────────────────────────────────────────────
@@ -263,18 +291,38 @@ class WPFingerprinter:
         indicators = [
             "/wp-content/", "/wp-includes/",
             "wp-json", "wordpress", "wp-login",
-            'name="generator" content="WordPress',
+            'name="generator" content="wordpress',
             "xmlrpc.php", "/wp-admin",
+            "wp-embed.min.js", "wp-emoji", "dashicons",
         ]
         body = resp.text.lower()
         for ind in indicators:
             if ind.lower() in body:
                 return True
-        # Check /wp-login.php
-        login = safe_request(self.session, urljoin(self.target, "/wp-login.php"),
+
+        # Probe multiple WP-specific endpoints
+        wp_probes = [
+            ("/wp-login.php",          ["user_login", "wp-login", "wordpress"]),
+            ("/wp-admin/",             ["wp-admin", "dashboard", "wordpress"]),
+            ("/wp-json/",              ["wp/v2", "wordpress", "namespaces"]),
+            ("/?rest_route=/",         ["wp/v2", "wordpress"]),
+            ("/xmlrpc.php",            ["xml", "xmlrpc", "methodResponse"]),
+            ("/wp-includes/js/jquery/jquery.min.js", ["jquery"]),
+            ("/?feed=rss2",            ["wordpress", "wp-content", "generator"]),
+        ]
+        for path, keywords in wp_probes:
+            r = safe_request(self.session, urljoin(self.target, path),
                              headers=self.headers, timeout=self.timeout)
-        if login and "user_login" in login.text.lower():
-            return True
+            if r is None:
+                continue
+            text = r.text.lower()
+            if any(kw in text for kw in keywords):
+                return True
+            # wp-login.php redirects to login even behind WAF
+            if path == "/wp-admin/" and r.status_code in (301, 302):
+                loc = r.headers.get("Location", "")
+                if "wp-login" in loc or "wp-admin" in loc:
+                    return True
         return False
 
     # ──────────────────────────────────────────────────────────────────────────

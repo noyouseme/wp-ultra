@@ -83,6 +83,7 @@ class WPUltra:
             self.session, self.target, self.headers,
             self.timeout, self.output_dir, self.threads,
         )
+        self.fingerprinter.force = getattr(args, 'force', False)
         self.vuln_scanner = VulnerabilityScanner(
             self.session, self.target, self.headers,
             self.timeout, self.threads, self.output_dir,
@@ -312,6 +313,8 @@ GitHub  : {GITHUB}
 
     # Misc
     p.add_argument("-v", "--verbose", action="store_true", help="Verbose output")
+    p.add_argument("--force", action="store_true",
+                   help="Force scan even if WordPress is not detected")
     p.add_argument("--version",  action="version",
                    version=f"WP-Ultra v{VERSION} by {AUTHOR} | {GITHUB}")
 
